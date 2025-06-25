@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { LogOut, Settings } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { Link } from 'react-router-dom'; // ✅ เพิ่ม
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -15,13 +16,13 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Left: Logo and Shop Info */}
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-xl">
+            <Link to="/" className="p-2 rounded-xl hover:opacity-90 transition">
               <img 
                 src="/images/nompangmaeo.png" 
                 alt="Nom Pung Meaw Logo" 
                 className="h-12 w-12 object-contain rounded-lg"
               />
-            </div>
+            </Link>
             <div>
               <h1 className="font-prompt text-xl font-bold text-gray-900 dark:text-white">
                 Nom Pang Maeo

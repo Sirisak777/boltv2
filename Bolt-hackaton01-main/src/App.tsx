@@ -10,6 +10,7 @@ import History from './pages/History';
 import Settings from './pages/Settings';
 import LoadingSpinner from './components/common/LoadingSpinner';
 
+/** 🔐 ใช้ระบบป้องกัน route เหมือนของเก่า */
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -37,16 +38,16 @@ const AppRoutes: React.FC = () => {
 
   return (
     <Routes>
-      {/* Landing Page - Public */}
+      {/* 🌐 หน้าแรก - ทุกคนเข้าถึงได้ */}
       <Route path="/" element={<LandingPage />} />
-      
-      {/* Auth Page - Redirect to Predictions if already authenticated */}
+
+      {/* 🔐 Auth Page - ถ้า login แล้วให้ไปที่ predictions */}
       <Route 
         path="/auth" 
         element={isAuthenticated ? <Navigate to="/app/predictions" replace /> : <AuthPage />} 
       />
-      
-      {/* Protected App Routes */}
+
+      {/* 🔐 Protected App Pages */}
       <Route
         path="/app"
         element={
@@ -60,8 +61,8 @@ const AppRoutes: React.FC = () => {
         <Route path="history" element={<History />} />
         <Route path="settings" element={<Settings />} />
       </Route>
-      
-      {/* Catch all - redirect to landing page */}
+
+      {/* ❌ Route อื่นที่ไม่เจอ - ส่งกลับหน้าแรก */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
@@ -69,15 +70,13 @@ const AppRoutes: React.FC = () => {
 
 function App() {
   return (
-    <React.StrictMode>
-      <AuthProvider>
-        <LanguageProvider>
-          <Router>
-            <AppRoutes />
-          </Router>
-        </LanguageProvider>
-      </AuthProvider>
-    </React.StrictMode>
+    <AuthProvider>
+      <LanguageProvider>
+        <Router>
+          <AppRoutes />
+        </Router>
+      </LanguageProvider>
+    </AuthProvider>
   );
 }
 

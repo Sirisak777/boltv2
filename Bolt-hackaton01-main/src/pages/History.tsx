@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { Download, Filter, Calendar, History as HistoryIcon } from 'lucide-react';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { useAuth } from '../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 interface Prediction {
   id: string;
@@ -14,6 +15,7 @@ interface Prediction {
 }
 
 const History: React.FC = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,7 +45,7 @@ const History: React.FC = () => {
   });
 
   const downloadCSV = () => {
-    const headers = ['Date', 'Product', 'Predicted Quantity'];
+    const headers = [t('date'), t('product'), t('predictedQuantity')];
     const rows = filtered.map(item => [
       format(new Date(item.date), 'yyyy-MM-dd'),
       item.menuName,
@@ -61,7 +63,7 @@ const History: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
-        <LoadingSpinner size="lg" text="Loading..." />
+        <LoadingSpinner size="lg" text={t('loading')} />
       </div>
     );
   }
@@ -76,8 +78,8 @@ const History: React.FC = () => {
               <HistoryIcon className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Prediction History</h1>
-              <p className="text-gray-600 dark:text-slate-300">View and analyze your past predictions</p>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('predictionHistory')}</h1>
+              <p className="text-gray-600 dark:text-slate-300">{t('viewAndAnalyze')}</p>
             </div>
           </div>
           <button 
@@ -85,7 +87,7 @@ const History: React.FC = () => {
             className="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 px-4 rounded-lg font-medium hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 flex items-center space-x-2"
           >
             <Download className="h-4 w-4" />
-            <span>Download CSV</span>
+            <span>{t('downloadCSV')}</span>
           </button>
         </div>
       </div>
@@ -94,18 +96,18 @@ const History: React.FC = () => {
       <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-slate-700">
         <div className="flex items-center space-x-3 mb-4">
           <Filter className="h-5 w-5 text-gray-600 dark:text-white" />
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Filters</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('filters')}</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-slate-300">Product</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-slate-300">{t('product')}</label>
             <select
               value={selectedProduct}
               onChange={e => setSelectedProduct(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-slate-700 dark:border-none dark:text-white"
             >
-              <option value="">All Products</option>
+              <option value="">{t('allProducts')}</option>
               {[...new Set(predictions.map(item => item.menuName))].map(name => (
                 <option key={name} value={name}>{name}</option>
               ))}
@@ -113,7 +115,7 @@ const History: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-slate-300">Date</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-slate-300">{t('date')}</label>
             <div className="relative">
               <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
@@ -130,32 +132,32 @@ const History: React.FC = () => {
       {/* Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 dark:bg-slate-800 dark:border-slate-700 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-white">Total Predictions</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 dark:text-white">{t('totalPredictions')}</h3>
           <p className="text-3xl font-bold text-purple-600">{filtered.length}</p>
-          <p className="text-sm text-gray-600 dark:text-slate-300">In selected filters</p>
+          <p className="text-sm text-gray-600 dark:text-slate-300">{t('inSelectedFilters')}</p>
         </div>
       </div>
 
       {/* Table */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden dark:bg-slate-800 dark:border-none">
         <div className="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Prediction Records</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('predictionRecords')}</h2>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-slate-800">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Predicted Qty</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('date')}</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('product')}</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('predictedQuantity')}</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 dark:bg-slate-800 dark:divide-slate-700">
               {filtered.length === 0 && (
                 <tr>
                   <td colSpan={3} className="text-center py-12 text-gray-500">
-                    No data found for the selected filters.
+                    {t('noDataFound')}
                   </td>
                 </tr>
               )}

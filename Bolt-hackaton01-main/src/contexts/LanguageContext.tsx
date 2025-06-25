@@ -29,6 +29,7 @@ const resources = {
       shouldProduce: 'Should Produce',
       pieces: 'pieces',
       predictionResult: "Tomorrow should produce '{{menu}}' about {{quantity}} pieces",
+      description: "Our AI uses recent sales data to accurately forecast daily bread production needs.",
 
       // Form
       selectProduct: 'Select Product',
@@ -42,8 +43,65 @@ const resources = {
       quantityMustBeNumber: 'Last day quantity must be a number',
       apiError: 'Error while calling API',
 
+      // History
+      predictionHistory: 'Prediction History',
+      viewAndAnalyze: 'View and analyze your past predictions',
+      downloadCSV: 'Download CSV',
+      filters: 'Filters',
+      product: 'Product',
+      allProducts: 'All Products',
+      date: 'Date',
+      totalPredictions: 'Total Predictions',
+      inSelectedFilters: 'In selected filters',
+      predictionRecords: 'Prediction Records',
+      predictedQuantity: 'Predicted Qty',
+      noDataFound: 'No data found for the selected filters.',
+
       // Common
       loading: 'Loading...',
+
+      // Settings page
+      settings: 'Settings',
+      'Manage your account and application preferences': 'Manage your account and application preferences',
+      'Profile Information': 'Profile Information',
+      name: 'Name',
+      email: 'Email',
+      shopName: 'Shop Name',
+      'Save Changes': 'Save Changes',
+      Security: 'Security',
+      'Change Password': 'Change Password',
+      'Update your account password': 'Update your account password',
+      Appearance: 'Appearance',
+      Theme: 'Theme',
+      Light: 'Light',
+      Dark: 'Dark',
+
+      // Navigation
+      backToHome: "Back to Home",
+
+      auth: {
+        logoAlt: 'Nom Pung Meaw Logo',
+        title: 'Nom Pang Maeo',
+        subtitle: 'Nom Pang Maeo',
+        description: 'Reduce waste, increase profits, and optimize your production with our intelligent sales forecasting system.',
+        feature1: 'AI-powered sales predictions',
+        feature2: 'Reduce food waste',
+        feature3: 'Optimize daily production planning',
+        invalidEmail: 'Invalid email address',
+        passwordTooShort: 'Password must be at least 6 characters',
+        invalidCredentials: 'Invalid email or password',
+        loginFailed: 'Login failed, please try again',
+        login: 'Login',
+        welcomeBack: 'Welcome back to your bakery dashboard',
+        demoAccount: 'Demo Account',
+        email: 'Email',
+        password: 'Password',
+        loading: 'Loading...',
+        signIn: 'Sign In',
+        dontHaveAccount: "Don't have an account?",
+        signUp: 'Sign Up',
+        backToHome: "Back to Home",
+      },
     }
   },
   th: {
@@ -54,6 +112,7 @@ const resources = {
       shouldProduce: 'ควรผลิต',
       pieces: 'ชิ้น',
       predictionResult: "พรุ่งนี้ควรผลิต '{{menu}}' ประมาณ {{quantity}} ชิ้น",
+      description: "ใช้ข้อมูลการขายล่าสุดเพื่อช่วยให้ AI พยากรณ์จำนวนขนมปังที่ควรผลิตในแต่ละวัน",
 
       // Form
       selectProduct: 'เลือกสินค้า',
@@ -67,8 +126,65 @@ const resources = {
       quantityMustBeNumber: 'จำนวนเมื่อวานต้องเป็นตัวเลข',
       apiError: 'เกิดข้อผิดพลาดในการเรียก API',
 
+      // History
+      predictionHistory: 'ประวัติการพยากรณ์',
+      viewAndAnalyze: 'ดูและวิเคราะห์การพยากรณ์ที่ผ่านมา',
+      downloadCSV: 'ดาวน์โหลด CSV',
+      filters: 'ตัวกรอง',
+      product: 'สินค้า',
+      allProducts: 'สินค้าทั้งหมด',
+      date: 'วันที่',
+      totalPredictions: 'จำนวนการพยากรณ์ทั้งหมด',
+      inSelectedFilters: 'ในตัวกรองที่เลือก',
+      predictionRecords: 'บันทึกการพยากรณ์',
+      predictedQuantity: 'จำนวนที่พยากรณ์',
+      noDataFound: 'ไม่พบข้อมูลสำหรับตัวกรองที่เลือก',
+
       // Common
       loading: 'กำลังโหลด...',
+
+      // Settings page
+      settings: 'ตั้งค่า',
+      'Manage your account and application preferences': 'จัดการบัญชีและการตั้งค่าแอปพลิเคชันของคุณ',
+      'Profile Information': 'ข้อมูลโปรไฟล์',
+      name: 'ชื่อ',
+      email: 'อีเมล',
+      shopName: 'ชื่อร้าน',
+      'Save Changes': 'บันทึกการเปลี่ยนแปลง',
+      Security: 'ความปลอดภัย',
+      'Change Password': 'เปลี่ยนรหัสผ่าน',
+      'Update your account password': 'อัปเดตรหัสผ่านบัญชีของคุณ',
+      Appearance: 'รูปลักษณ์',
+      Theme: 'ธีม',
+      Light: 'สว่าง',
+      Dark: 'มืด',
+
+      // Navigation
+      backToHome: "กลับหน้าแรก",
+
+      auth: {
+        logoAlt: 'โลโก้ หนมปังแมว',
+        title: 'หนมปังแมว',
+        subtitle: 'หนมปังแมว',
+        description: 'ลดของเสีย เพิ่มกำไร และวางแผนการผลิตอย่างชาญฉลาดด้วยระบบพยากรณ์ยอดขายของเรา',
+        feature1: 'ระบบพยากรณ์ยอดขายด้วย AI',
+        feature2: 'ลดของเสียจากการผลิตได้',
+        feature3: 'วางแผนการผลิตในแต่ละวันอย่างมีประสิทธิภาพ',
+        invalidEmail: 'อีเมลไม่ถูกต้อง',
+        passwordTooShort: 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร',
+        invalidCredentials: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+        loginFailed: 'เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่',
+        login: 'เข้าสู่ระบบ',
+        welcomeBack: 'ยินดีต้อนรับกลับสู่แดชบอร์ดหนมปังแมว',
+        demoAccount: 'บัญชีทดลอง',
+        email: 'อีเมล',
+        password: 'รหัสผ่าน',
+        loading: 'กำลังโหลด...',
+        signIn: 'เข้าสู่ระบบ',
+        dontHaveAccount: 'ยังไม่มีบัญชี?',
+        signUp: 'สมัครสมาชิก',
+        backToHome: "กลับหน้าแรก",
+      },
     }
   }
 };

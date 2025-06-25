@@ -23,11 +23,13 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 
 const heroBackgrounds = [
-  '/images/1.jpg',
-  '/images/2.jpg',
-  '/images/3.jpg',
-  '/images/5.jpg',
-  '/images/6.jpg',
+  '/images/b1.avif',
+  '/images/b5.avif',
+  '/images/b7.avif',
+  '/images/b8.jpeg',
+  '/images/b9.jpg',
+  '/images/b11.jpg',
+  
 ];
 
 const LandingPage: React.FC = () => {
@@ -181,73 +183,58 @@ const LandingPage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-     <section
-  className="relative py-20 transition-all duration-1000"
-  style={{
-    backgroundImage: `url(${heroBackgrounds[bgIndex]})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }}
->
-  {/* ▻ overlay สีดำบาง ๆ คลุมเต็มรูป เพื่อเพิ่ม contrast */}
-  <div className="absolute inset-0 bg-black/10"></div>
+    <div className="relative h-fit overflow-hidden">
+  {/* ภาพพื้นหลังหลายภาพซ้อนกัน */}
+  {heroBackgrounds.map((bg, i) => (
+    <div
+      key={i}
+      className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        opacity: i === bgIndex ? 1 : 0,
+        zIndex: i === bgIndex ? 0 : -1,
+      }}
+    />
+  ))}
 
-  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="mx-auto max-w-3xl rounded-3xl bg-white/10 backdrop-blur-lg p-10 md:p-14 flex flex-col justify-center items-center text-center min-h-[250px]">
-      <h1
-        className="
-          relative
-          font-pacifico
-          text-5xl md:text-6xl
-          font-bold
-          mb-6
-          leading-relaxed
-          bg-gradient-to-r
-          from-red-400 via-orange-300 to-red-400
-          bg-clip-text text-transparent
-        "
+  {/* overlay สีดำบาง ๆ */}
+  <div className="absolute inset-0 bg-black/10 z-10"></div>
+
+  <section className="relative py-20 z-20">
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl rounded-3xl bg-white/10 backdrop-blur-lg p-10 md:p-14 flex flex-col justify-center items-center text-center min-h-[250px]">
+        <h1
+          className="relative font-pacifico text-5xl md:text-6xl font-bold mb-6 leading-relaxed bg-gradient-to-r from-orange-500 via-amber-400 to-yellow-200 bg-clip-text text-transparent"
           style={{ minHeight: '6rem' }}
-      >
-        <span className={language === 'th' ? 'font-anuphan' : 'font-pacifico'}>
-          {language === 'th' ? 'หนมปังแมว' : 'Nom Pang Maeo'}
-        </span>
-      </h1>
+        >
+          <span className={language === 'th' ? 'font-anuphan' : 'font-pacifico'}>
+            {language === 'th' ? 'หนมปังแมว' : 'Nom Pang Maeo'}
+          </span>
+        </h1>
 
-      <p className="font-anuphan text-xl text-amber-100 mb-8 leading-relaxed">
-        {language === 'th'
-          ? 'ลดของเสีย เพิ่มกำไร และเพิ่มประสิทธิภาพการผลิตด้วยระบบพยากรณ์ยอดขายอัจฉริยะของเรา'
-          : 'Reduce waste, increase profits, and optimize your production with our intelligent sales forecasting system.'}
-      </p>
+        <p className="font-anuphan text-xl text-white mb-8 leading-relaxed">
+          {language === 'th'
+            ? 'ลดของเสีย เพิ่มกำไร และเพิ่มประสิทธิภาพการผลิตด้วยระบบพยากรณ์ยอดขายอัจฉริยะของเรา'
+            : 'Reduce waste, increase profits, and optimize your production with our intelligent sales forecasting system.'}
+        </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <Link
-                to="/auth"
-                className="font-anuphan bg-gradient-to-r from-orange-500 to-amber-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-orange-600 hover:to-amber-600 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-              >
-                <span>{language === 'th' ? 'เริ่มใช้งานฟรี' : 'Start Free Trial'}</span>
-                <Zap className="h-5 w-5" />
-              </Link>
-              
-              <button className="font-anuphan border-2 border-orange-100 text-amber-100 px-8 py-4 rounded-xl font-semibold text-lg hover:border-orange-300 hover:text-orange-400 transition-all duration-200 flex items-center space-x-2">
-                <span>{language === 'th' ? 'ดูการสาธิต' : 'Watch Demo'}</span>
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <Link
+            to="/auth"
+            className="font-anuphan bg-gradient-to-r from-orange-500 to-amber-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-orange-600 hover:to-amber-600 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+          >
+            <span>{language === 'th' ? 'เริ่มใช้งานฟรี' : 'Start Free Trial'}</span>
+            <Zap className="h-5 w-5" />
+          </Link>
 
-            {/* Stats */}
-            <div className="font-anuphan grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl font-bold text-orange-400 mb-2">{stat.number}</div>
-                  <div className="text-amber-100 text-sm">
-                    {language === 'th' ? stat.labelTh : stat.labelEn}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
+</div>
+
 
       {/* Features Section */}
       <section className="py-20 bg-white">
@@ -400,8 +387,8 @@ const LandingPage: React.FC = () => {
           </h2>
           <p className="text-xl text-white/90 mb-8">
             {language === 'th' 
-              ? 'เข้าร่วมกับเบเกอรี่หลายร้อยแห่งที่ใช้ BakeryAI เพื่อเพิ่มประสิทธิภาพธุรกิจ'
-              : 'Join hundreds of bakeries using BakeryAI to optimize their business operations'
+              ? 'เข้าร่วมกับเบเกอรี่หลายร้อยแห่งที่ใช้ Nom Pang Maeo เพื่อเพิ่มประสิทธิภาพธุรกิจ'
+              : 'Join hundreds of bakeries using Nom Pang Maeo to optimize their business operations'
             }
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -425,11 +412,15 @@ const LandingPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-2 rounded-xl">
-                  <Croissant className="h-6 w-6 text-white" />
+               <div className="p-2 rounded-xl">
+                  <img 
+                    src="/images/nompangmaeo.png" 
+                    alt="Nom Pung Meaw Logo" 
+                    className="h-12 w-12 object-contain rounded-lg"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">BakeryAI</h3>
+                  <h3 className="text-xl font-bold">Nom Pang Maeo</h3>
                   <p className="text-gray-400 text-sm">Smart Sales Prediction</p>
                 </div>
               </div>
@@ -441,43 +432,35 @@ const LandingPage: React.FC = () => {
               </p>
             </div>
             
+
             <div>
               <h4 className="font-semibold mb-4">
-                {language === 'th' ? 'ผลิตภัณฑ์' : 'Product'}
+                {language === 'th' ? 'ติดต่อเรา' : 'Contact'}
               </h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">
-                  {language === 'th' ? 'ฟีเจอร์' : 'Features'}
-                </a></li>
-                <li><a href="#" className="hover:text-white transition-colors">
-                  {language === 'th' ? 'ราคา' : 'Pricing'}
-                </a></li>
-                <li><a href="#" className="hover:text-white transition-colors">
-                  {language === 'th' ? 'การสาธิต' : 'Demo'}
-                </a></li>
+              <li>
+              <a
+                href="mailto:support@nompangmaeo.com"
+                className="hover:text-white transition-colors"
+              >
+                {language === 'th' ? 'ติดต่อทางอีเมล' : 'Contact via Email'}
+              </a>
+            </li>
+          <li>
+            <a
+              href="tel:+66812345678"
+              className="hover:text-white transition-colors"
+            >
+              {language === 'th' ? 'ติดต่อ: 091-234-5678' : 'Contact: +66912345678'}
+            </a>
+          </li>
               </ul>
             </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">
-                {language === 'th' ? 'บริษัท' : 'Company'}
-              </h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">
-                  {language === 'th' ? 'เกี่ยวกับเรา' : 'About'}
-                </a></li>
-                <li><a href="#" className="hover:text-white transition-colors">
-                  {language === 'th' ? 'ติดต่อ' : 'Contact'}
-                </a></li>
-                <li><a href="#" className="hover:text-white transition-colors">
-                  {language === 'th' ? 'สนับสนุน' : 'Support'}
-                </a></li>
-              </ul>
-            </div>
+
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 BakeryAI. {language === 'th' ? 'สงวนลิขสิทธิ์' : 'All rights reserved.'}</p>
+            <p>&copy; 2024 Nom Pag Maeo. {language === 'th' ? 'สงวนลิขสิทธิ์' : 'All rights reserved.'}</p>
           </div>
         </div>
       </footer>
