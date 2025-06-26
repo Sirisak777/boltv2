@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 const usersFile = path.join(__dirname, 'users.json');
 
 function loadUsers() {
-  if (!fs.existsSync(usersFile)) return []; // ป้องกัน error
+  if (!fs.existsSync(usersFile)) return [];
   return JSON.parse(fs.readFileSync(usersFile));
 }
 
@@ -49,7 +49,6 @@ app.post('/register', (req, res) => {
   res.json({ message: 'User registered successfully', user: userWithoutPassword });
 });
 
-
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
   const users = loadUsers();
@@ -61,6 +60,28 @@ app.post('/login', (req, res) => {
 
   res.json({ message: 'Login successful', user: { id: user.id, email: user.email } });
 });
+
+// ✅ ใหม่: เปลี่ยนรหัสผ่าน
+app.post('/change-password', (req, res) => {
+  const { email, newPassword } = req.body;
+
+  if (!email || !newPassword) {
+    return res.status(400).json({ message: 'Email and new password are required' });
+  }
+
+  const users = loadUsers();
+  const userIndex = users.findIndex(u => u.email === email);
+
+  if (userIndex === -1) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  users[userIndex].password = newPassword;
+  saveUsers(users);
+
+  res.json({ message: 'Password changed successfully' });
+});
+
 
 app.get('/', (req, res) => {
   res.send('API is running...');

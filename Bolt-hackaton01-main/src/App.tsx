@@ -8,9 +8,10 @@ import AuthPage from './pages/AuthPage';
 import Predictions from './pages/Predictions';
 import History from './pages/History';
 import Settings from './pages/Settings';
+import ChangePassword from './pages/ChangePassword';
 import LoadingSpinner from './components/common/LoadingSpinner';
 
-/** 🔐 ใช้ระบบป้องกัน route เหมือนของเก่า */
+/** 🔐 Route สำหรับผู้ใช้ที่ล็อกอินแล้วเท่านั้น */
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -38,16 +39,16 @@ const AppRoutes: React.FC = () => {
 
   return (
     <Routes>
-      {/* 🌐 หน้าแรก - ทุกคนเข้าถึงได้ */}
+      {/* 🌐 หน้า Landing - เข้าถึงได้ทุกคน */}
       <Route path="/" element={<LandingPage />} />
 
-      {/* 🔐 Auth Page - ถ้า login แล้วให้ไปที่ predictions */}
-      <Route 
-        path="/auth" 
-        element={isAuthenticated ? <Navigate to="/app/predictions" replace /> : <AuthPage />} 
+      {/* 🔐 หน้าล็อกอิน - หากล็อกอินแล้วจะ redirect */}
+      <Route
+        path="/auth"
+        element={isAuthenticated ? <Navigate to="/app/predictions" replace /> : <AuthPage />}
       />
 
-      {/* 🔐 Protected App Pages */}
+      {/* 🔐 พื้นที่ใช้งานของผู้ใช้ที่ล็อกอิน */}
       <Route
         path="/app"
         element={
@@ -60,9 +61,10 @@ const AppRoutes: React.FC = () => {
         <Route path="predictions" element={<Predictions />} />
         <Route path="history" element={<History />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="change-password" element={<ChangePassword />} /> {/* ✅ เพิ่มตรงนี้ */}
       </Route>
 
-      {/* ❌ Route อื่นที่ไม่เจอ - ส่งกลับหน้าแรก */}
+      {/* ❌ เส้นทางที่ไม่เจอจะพาไปหน้าแรก */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

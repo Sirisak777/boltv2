@@ -4,12 +4,14 @@ import { Settings as SettingsIcon, User, Shield, Palette } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { useDensity } from '../contexts/DensityContext';
+import { useNavigate } from 'react-router-dom'; // ✅ เพิ่ม useNavigate
 
 const Settings: React.FC = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { theme, setTheme } = useContext(ThemeContext);
   const { density } = useDensity();
+  const navigate = useNavigate(); // ✅ สำหรับเปลี่ยนหน้า
 
   return (
     <div className="space-y-6">
@@ -84,7 +86,10 @@ const Settings: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <button className="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors dark:bg-slate-700 dark:text-white">
+              <button
+                onClick={() => navigate('/app/change-password')}
+                className="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors dark:bg-slate-700 dark:text-white"
+              >
                 <p className="font-medium">{t('Change Password')}</p>
                 <p className="text-sm text-gray-600 dark:text-slate-300">{t('Update your account password')}</p>
               </button>
