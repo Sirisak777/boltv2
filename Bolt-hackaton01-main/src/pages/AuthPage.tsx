@@ -21,6 +21,32 @@ const AuthPage: React.FC = () => {
         <div className="absolute top-3/4 left-1/3 w-16 h-16 bg-yellow-200 rounded-full opacity-25"></div>
       </div>
 
+      {/* Language Switch */}
+      <div className="absolute top-6 right-6 z-10">
+        <div className="flex bg-gray-100 rounded-lg p-1 shadow-md">
+          <button
+            onClick={() => setLanguage('en')}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+              language === 'en'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            🇺🇸 EN
+          </button>
+          <button
+            onClick={() => setLanguage('th')}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+              language === 'th'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            🇹🇭 TH
+          </button>
+        </div>
+      </div>
+      
       <div className="relative z-10 w-full max-w-6xl flex rounded-3xl shadow-2xl overflow-hidden bg-white">
         {/* Left side - Branding */}
         <div className="flex lg:w-1/2 bg-gradient-to-br from-orange-500 via-amber-500 to-yellow-400 p-12 flex-col justify-center relative">

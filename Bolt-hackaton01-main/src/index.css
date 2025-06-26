@@ -24,6 +24,7 @@
     opacity: 0;
     animation: crumbFall 5s linear infinite;
   }
+
 }
 
 @keyframes bounceSoft {

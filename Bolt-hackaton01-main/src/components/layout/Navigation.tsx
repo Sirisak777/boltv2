@@ -7,16 +7,16 @@ const Navigation: React.FC = () => {
   const { t } = useTranslation();
 
   const navItems = [
-    { to: '/app/predictions', icon: TrendingUp, label: t('predictions') },
-    { to: '/app/history', icon: History, label: t('history') },
-    { to: '/app/settings', icon: Settings, label: t('settings') },
+    { to: '/app/predictions', icon: TrendingUp, labelKey: 'predictSales' },
+    { to: '/app/history', icon: History, labelKey: 'predictionHistory' },
+    { to: '/app/settings', icon: Settings, labelKey: 'settings' },
   ];
 
   return (
     <nav className="bg-white dark:bg-slate-900 border-r border-amber-100 dark:border-slate-700 w-64 min-h-screen">
       <div className="p-6">
         <ul className="space-y-2">
-          {navItems.map(({ to, icon: Icon, label }) => (
+          {navItems.map(({ to, icon: Icon, labelKey }) => (
             <li key={to}>
               <NavLink
                 to={to}
@@ -29,7 +29,7 @@ const Navigation: React.FC = () => {
                 }
               >
                 <Icon className="h-5 w-5" />
-                <span className="font-medium">{label}</span>
+                <span className="font-medium">{t(labelKey)}</span>
               </NavLink>
             </li>
           ))}

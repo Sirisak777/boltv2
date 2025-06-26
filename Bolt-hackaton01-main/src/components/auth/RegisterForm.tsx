@@ -43,8 +43,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
   return (
     <div className="w-full max-w-md">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">{t('createAccount')}</h2>
-        <p className="text-gray-600">Start predicting your bakery sales</p>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">{t('auth.createAccount')}</h2>
+        <p className="text-gray-600">{t('auth.startPredicting')}</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -60,7 +60,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
               {...register('name')}
               type="text"
               className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              placeholder="John Doe"
+              placeholder="Name"
             />
           </div>
           {errors.name && (
@@ -80,7 +80,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
               {...register('shopName')}
               type="text"
               className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              placeholder="Sweet Dreams Bakery"
+              placeholder="Example Bakery"
             />
           </div>
           {errors.shopName && (
@@ -150,19 +150,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
               {t('loading')}
             </div>
           ) : (
-            t('createAccount')
+            t('auth.createAccount')
           )}
         </button>
       </form>
 
       <div className="mt-6 text-center">
         <p className="text-gray-600">
-          {t('alreadyHaveAccount')}{' '}
-          <button
-            onClick={onSwitchToLogin}
-            className="text-orange-600 hover:text-orange-700 font-medium"
-          >
-            {t('signIn')}
+          {t('auth.alreadyHaveAccount')}{' '}
+          <button onClick={onSwitchToLogin} className="text-orange-600 hover:text-orange-700 font-medium">
+            {t('auth.signIn')}
           </button>
         </p>
       </div>

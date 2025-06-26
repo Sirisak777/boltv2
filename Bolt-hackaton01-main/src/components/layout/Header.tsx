@@ -15,7 +15,7 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left: Logo and Shop Info */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-1">
             <Link to="/" className="p-2 rounded-xl hover:opacity-90 transition">
               <img 
                 src="/images/nompangmaeo.png" 
@@ -24,9 +24,17 @@ const Header: React.FC = () => {
               />
             </Link>
             <div>
-              <h1 className="font-prompt text-xl font-bold text-gray-900 dark:text-white">
-                Nom Pang Maeo
-              </h1>
+              <Link to="/" className="flex items-center space-x-3 p-2 rounded-xl hover:opacity-90 transition">
+                <div>
+                  <h1 className="font-prompt text-xl font-bold text-gray-900 dark:text-white">
+                    Nom Pang Maeo
+                  </h1>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Smart Sales Prediction
+                  </p>
+                </div>
+              </Link>
+
               <p className="text-xs text-gray-500 dark:text-gray-400">{user?.shopName}</p>
             </div>
           </div>
@@ -65,12 +73,13 @@ const Header: React.FC = () => {
               </div>
 
               <div className="flex items-center space-x-2">
-                <button
+                <Link
+                  to="/app/settings"
                   className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
-                  title="Settings"
+                  title={t('settings')}
                 >
                   <Settings className="h-5 w-5" />
-                </button>
+                </Link>
                 <button
                   onClick={logout}
                   className="p-2 text-gray-400 hover:text-red-600 transition-colors rounded-lg hover:bg-red-50 dark:hover:bg-red-900"

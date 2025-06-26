@@ -92,7 +92,7 @@ const resources = {
         invalidCredentials: 'Invalid email or password',
         loginFailed: 'Login failed, please try again',
         login: 'Login',
-        welcomeBack: 'Welcome back to your bakery dashboard',
+        welcomeBack: 'Welcome to the Bread Production Forecasting System',
         demoAccount: 'Demo Account',
         email: 'Email',
         password: 'Password',
@@ -101,6 +101,9 @@ const resources = {
         dontHaveAccount: "Don't have an account?",
         signUp: 'Sign Up',
         backToHome: "Back to Home",
+        createAccount: 'Create Account',
+        startPredicting: 'Start predicting your bakery sales',
+        alreadyHaveAccount: "Already have an account?",
       },
     }
   },
@@ -175,7 +178,7 @@ const resources = {
         invalidCredentials: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
         loginFailed: 'เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่',
         login: 'เข้าสู่ระบบ',
-        welcomeBack: 'ยินดีต้อนรับกลับสู่แดชบอร์ดหนมปังแมว',
+        welcomeBack: 'ยินดีต้อนรับสู่ระบบทำนายยอดผลิตขนมปัง',
         demoAccount: 'บัญชีทดลอง',
         email: 'อีเมล',
         password: 'รหัสผ่าน',
@@ -184,6 +187,9 @@ const resources = {
         dontHaveAccount: 'ยังไม่มีบัญชี?',
         signUp: 'สมัครสมาชิก',
         backToHome: "กลับหน้าแรก",
+        createAccount: 'สร้างบัญชี',
+        startPredicting: 'เริ่มทำนายยอดขายเบเกอรี่ของคุณ',
+        alreadyHaveAccount: 'มีบัญชีอยู่แล้ว?',
       },
     }
   }
