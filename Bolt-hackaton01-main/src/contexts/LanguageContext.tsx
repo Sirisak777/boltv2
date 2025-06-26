@@ -70,6 +70,8 @@ const resources = {
       'Save Changes': 'Save Changes',
       Security: 'Security',
       'Change Password': 'Change Password',
+      'New Password': 'New Password',
+      'Confirm New Password':'Confirm New Password',
       'Update your account password': 'Update your account password',
       Appearance: 'Appearance',
       Theme: 'Theme',
@@ -104,6 +106,9 @@ const resources = {
         createAccount: 'Create Account',
         startPredicting: 'Start predicting your bakery sales',
         alreadyHaveAccount: "Already have an account?",
+        "registrationSuccess": "Registration Successful",
+        "pleaseLogin": "Please login to continue",
+        "goToLogin": "Go to Login",
       },
     }
   },
@@ -156,6 +161,8 @@ const resources = {
       'Save Changes': 'บันทึกการเปลี่ยนแปลง',
       Security: 'ความปลอดภัย',
       'Change Password': 'เปลี่ยนรหัสผ่าน',
+      'New Password': 'รหัสผ่านใหม่',
+      'Confirm New Password':'ยืนยันรหัสผ่านใหม่',
       'Update your account password': 'อัปเดตรหัสผ่านบัญชีของคุณ',
       Appearance: 'รูปลักษณ์',
       Theme: 'ธีม',
@@ -190,6 +197,9 @@ const resources = {
         createAccount: 'สร้างบัญชี',
         startPredicting: 'เริ่มทำนายยอดขายเบเกอรี่ของคุณ',
         alreadyHaveAccount: 'มีบัญชีอยู่แล้ว?',
+        "registrationSuccess": "สร้างบัญชีสำเร็จ",
+        "pleaseLogin": "กรุณาล็อกอินเพื่อเข้าสู่ระบบ",
+        "goToLogin": "ไปที่ล็อกอิน",
       },
     }
   }

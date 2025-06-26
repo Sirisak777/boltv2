@@ -17,6 +17,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   register: (data: RegisterData) => Promise<boolean>;
   logout: () => void;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,21 +26,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ✅ โหลด user จาก localStorage แบบอันใหม่
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) setUser(JSON.parse(savedUser));
     setIsLoading(false);
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const response = await authService.login({ email, password } as LoginData);
-      setUser(response.data.user);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      const response = await authService.login({ email, password });
+      const fullUser = response.data.user;
+
+      setUser(fullUser); // ✅ มี name, shopName
+      localStorage.setItem('user', JSON.stringify(fullUser)); // ✅ เก็บครบ
       return true;
     } catch (error) {
       console.error('Login failed:', error);
@@ -52,9 +52,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const register = async (data: RegisterData): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const response = await authService.register(data);
-      setUser(response.data.user);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      await authService.register(data); // เรียก API สมัคร แต่ไม่เซ็ต user
+      // ไม่ setUser, ไม่เก็บ localStorage
       return true;
     } catch (error) {
       console.error('Register failed:', error);
@@ -69,13 +68,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem('user');
   };
 
+  const isAuthenticated = !!user;
+
   const value: AuthContextType = {
     user,
-    isAuthenticated: !!user,
+    isAuthenticated,
     isLoading,
     login,
     register,
     logout,
+    setUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import LoginForm from '../components/auth/LoginForm';
 import RegisterForm from '../components/auth/RegisterForm';
@@ -8,12 +8,22 @@ import { ArrowLeft } from 'lucide-react';
 
 const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [registerSuccess, setRegisterSuccess] = useState(false);
   const { t } = useTranslation();
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (registerSuccess) {
+      const timer = setTimeout(() => {
+        setRegisterSuccess(false);
+      }, 2000); // 2 วินาที
+      return () => clearTimeout(timer);
+    }
+  }, [registerSuccess]);
+
   return (
-    <div className="min-h-screen bg-[url('/images/bread.jpg')] bg-cover bg-center flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[url('/images/bread.jpg')] bg-cover bg-center flex items-center justify-center p-4 relative">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-orange-200 rounded-full opacity-20 animate-pulse"></div>
@@ -22,7 +32,7 @@ const AuthPage: React.FC = () => {
       </div>
 
       {/* Language Switch */}
-      <div className="absolute top-6 right-6 z-10">
+      <div className="absolute top-6 right-6 z-20">
         <div className="flex bg-gray-100 rounded-lg p-1 shadow-md">
           <button
             onClick={() => setLanguage('en')}
@@ -46,13 +56,23 @@ const AuthPage: React.FC = () => {
           </button>
         </div>
       </div>
-      
+
+      {/* Popup Overlay กลางจอ */}
+      {registerSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+          <div className="bg-green-100 border border-green-400 text-green-800 px-8 py-4 rounded-md text-lg font-medium shadow-lg select-none">
+            {language === 'th'
+              ? '🎉 สร้างบัญชีสำเร็จ กรุณาล็อกอิน'
+              : '🎉 Account created successfully. Please login.'}
+          </div>
+        </div>
+      )}
+
       <div className="relative z-10 w-full max-w-6xl flex rounded-3xl shadow-2xl overflow-hidden bg-white">
         {/* Left side - Branding */}
         <div className="flex lg:w-1/2 bg-gradient-to-br from-orange-500 via-amber-500 to-yellow-400 p-12 flex-col justify-center relative">
           <div className="absolute inset-0 bg-black opacity-10"></div>
 
-          {/* ปุ่ม Back to Home (ปรับเป็น absolute และเพิ่ม top) */}
           <button
             onClick={() => navigate('/')}
             className="absolute top-8 left-8 flex items-center space-x-2 text-white hover:text-orange-300 transition z-20"
@@ -62,7 +82,6 @@ const AuthPage: React.FC = () => {
           </button>
 
           <div className="relative z-10">
-            {/* Logo with clickable navigation */}
             <div
               className="flex items-center space-x-3 mb-8 cursor-pointer hover:opacity-90"
               onClick={() => navigate('/')}
@@ -109,11 +128,17 @@ const AuthPage: React.FC = () => {
 
         {/* Right side - Auth forms */}
         <div className="w-full lg:w-1/2 p-12 flex flex-col items-center justify-center space-y-6 relative">
-          {/* Auth Form */}
           {isLogin ? (
-            <LoginForm onSwitchToRegister={() => setIsLogin(false)} />
+            <LoginForm
+              onSwitchToRegister={() => setIsLogin(false)}
+              registerSuccess={registerSuccess}
+              clearRegisterSuccess={() => setRegisterSuccess(false)}
+            />
           ) : (
-            <RegisterForm onSwitchToLogin={() => setIsLogin(true)} />
+            <RegisterForm
+              onSwitchToLogin={() => setIsLogin(true)}
+              setRegisterSuccess={setRegisterSuccess} // ส่งฟังก์ชันให้ RegisterForm เรียกตอนสมัครเสร็จ
+            />
           )}
         </div>
       </div>

@@ -1,3 +1,4 @@
+// ✅ server.js (หรือ server.ts ถ้าใช้ TypeScript)
 import express from 'express';
 import fs from 'fs';
 import bodyParser from 'body-parser';
@@ -58,10 +59,11 @@ app.post('/login', (req, res) => {
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 
-  res.json({ message: 'Login successful', user: { id: user.id, email: user.email } });
+  // ✅ ส่งข้อมูลครบถ้วนกลับไป
+  const { password: _, ...userWithoutPassword } = user;
+  res.json({ message: 'Login successful', user: userWithoutPassword });
 });
 
-// ✅ ใหม่: เปลี่ยนรหัสผ่าน
 app.post('/change-password', (req, res) => {
   const { email, newPassword } = req.body;
 
@@ -82,6 +84,26 @@ app.post('/change-password', (req, res) => {
   res.json({ message: 'Password changed successfully' });
 });
 
+app.post('/update-profile', (req, res) => {
+  const { id, name, shopName } = req.body;
+  const users = loadUsers();
+
+  const index = users.findIndex(u => u.id === id);
+  if (index === -1) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  users[index].name = name;
+  users[index].shopName = shopName;
+  saveUsers(users);
+
+  const { password, ...userWithoutPassword } = users[index];
+  if (!userWithoutPassword.email) {
+    userWithoutPassword.email = users[index].email;
+  }
+
+  res.json({ message: 'Profile updated successfully', user: userWithoutPassword });
+});
 
 app.get('/', (req, res) => {
   res.send('API is running...');

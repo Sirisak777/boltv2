@@ -139,6 +139,7 @@ const Predictions: React.FC = () => {
           <span className="text-gray-700 font-medium dark:text-slate-300">{t('lastDayQuantity', 'จำนวนที่ขายเมื่อวาน')}</span>
           <input
             type="number"
+            min={0}                  // ไม่ให้กรอกต่ำกว่า 0
             value={lastQuantity}
             onChange={(e) => setLastQuantity(e.target.value)}
             placeholder={t('enterNumber', 'ใส่ตัวเลข')}

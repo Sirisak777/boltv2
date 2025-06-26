@@ -35,7 +35,6 @@ const Header: React.FC = () => {
                 </div>
               </Link>
 
-              <p className="text-xs text-gray-500 dark:text-gray-400">{user?.shopName}</p>
             </div>
           </div>
 
@@ -68,8 +67,11 @@ const Header: React.FC = () => {
             {/* User Info & Menu */}
             <div className="flex items-center space-x-3">
               <div className="text-right">
-                <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+                {/* แสดงแค่ email */}
+                <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.email}</p>
+                {/* ไม่ต้องแสดงชื่อ หรือ ชื่อร้าน */}
+                {/* <p className="text-xs text-gray-500 dark:text-gray-400">{user?.name}</p> */}
+                {/* <p className="text-xs text-gray-500 dark:text-gray-400">{user?.shopName}</p> */}
               </div>
 
               <div className="flex items-center space-x-2">

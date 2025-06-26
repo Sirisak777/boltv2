@@ -1,7 +1,10 @@
-// services/authService.ts
+// src/services/authService.ts
 import axios from 'axios';
 
-const API = 'http://localhost:5000';
+export interface LoginData {
+  email: string;
+  password: string;
+}
 
 export interface RegisterData {
   email: string;
@@ -10,10 +13,14 @@ export interface RegisterData {
   shopName: string;
 }
 
-export interface LoginData {
-  email: string;
-  password: string;
-}
+const API_URL = 'http://localhost:5000';
 
-export const register = (data: RegisterData) => axios.post(`${API}/register`, data);
-export const login = (data: LoginData) => axios.post(`${API}/login`, data);
+export const login = async (data: LoginData) => {
+  const response = await axios.post(`${API_URL}/login`, data);
+  return response; // ✅ response.data.user ต้องมี name และ shopName
+};
+
+export const register = async (data: RegisterData) => {
+  const response = await axios.post(`${API_URL}/register`, data);
+  return response;
+};

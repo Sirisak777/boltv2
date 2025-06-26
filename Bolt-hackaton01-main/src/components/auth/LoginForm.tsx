@@ -1,5 +1,5 @@
 // src/components/auth/LoginForm.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,14 +17,30 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 interface LoginFormProps {
   onSwitchToRegister: () => void;
+  registerSuccess?: boolean;
+  clearRegisterSuccess?: () => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
+const LoginForm: React.FC<LoginFormProps> = ({
+  onSwitchToRegister,
+  registerSuccess,
+  clearRegisterSuccess,
+}) => {
   const { t } = useTranslation();
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
+
+  // ซ่อน popup หลัง 4 วินาที
+  useEffect(() => {
+    if (registerSuccess && clearRegisterSuccess) {
+      const timer = setTimeout(() => {
+        clearRegisterSuccess();
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [registerSuccess, clearRegisterSuccess]);
 
   const {
     register,
@@ -33,27 +49,39 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: 'demo@bakery.com',
-      password: 'demo123',
+      email: '',
+      password: '',
     },
   });
 
   const onSubmit = async (data: LoginFormData) => {
     setLoginError('');
     try {
-      const success = await login(data.email, data.password); // 🔁 ใช้ login จาก database จริง
+      const success = await login(data.email, data.password);
       if (!success) {
         setLoginError(t('auth.invalidCredentials'));
       } else {
         navigate('/app/predictions');
       }
-    } catch (err) {
+    } catch {
       setLoginError(t('auth.loginFailed'));
     }
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md relative">
+      {/* Popup สร้างบัญชีสำเร็จ ทับหน้า */}
+      {registerSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+          <div className="bg-green-100 border border-green-400 text-green-800 px-8 py-4 rounded-md text-lg font-medium shadow-lg select-none">
+            {t('auth.accountCreatedSuccess') ||
+              (t('language') === 'th'
+                ? '🎉 สร้างบัญชีสำเร็จ กรุณาล็อกอิน'
+                : '🎉 Account created successfully. Please login.')}
+          </div>
+        </div>
+      )}
+
       <div className="text-center mb-8">
         <h2 className="font-prompt text-3xl font-bold text-gray-900 mb-2">{t('auth.login')}</h2>
         <p className="font-prompt text-gray-600">{t('auth.welcomeBack')}</p>
