@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "Bolt-hackaton01-main/server/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "Bolt-hackaton01-main/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "Bolt-hackaton01-main/server/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "Bolt-hackaton01-main/dist/$1"
+    }
+  ]
+}
